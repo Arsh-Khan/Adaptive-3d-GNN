@@ -14,10 +14,8 @@ from torch.utils.tensorboard import SummaryWriter
 from torch_geometric.loader import DataLoader
 from sklearn.cluster import DBSCAN
 from Bio import SeqIO
-
-# from sklearn.model_selection import KFold
 import torch.nn as nn
-import torch.nn.functional as F
+
 
 parser = argparse.ArgumentParser(description="Simulate a Affinity training GNN with the appropriate hyperparameters.")
 parser.add_argument('-d','--train-dataset', required=True, help='the protein dataset for training')
@@ -62,7 +60,7 @@ parser.add_argument('--early_stop', required=False, type=str, default='y',
                     help='number of meta-epochs')
 parser.add_argument('--drop_ratio', required=False, type=float, help='percentage of edges to drop randomly', default=None)
 parser.add_argument('--euc_thr', required=False, default=200, type=float, help='this is the distance threshold for removing edges between MHC an peptide')
-parser.add_argument('--modify_way', required=False, type=str, default=None,
+parser.add_argument('--modify_way', required=False, type=str, default='remove',
                     help='add edges or removing edges')
 parser.add_argument('--prelin_type', required=False, type=str, default='linear',
                     help='linear or nonlinear for prelinear layer')
