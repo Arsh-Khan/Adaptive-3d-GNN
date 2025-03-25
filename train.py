@@ -478,6 +478,9 @@ def train():
             sample_kernel_list.append(sample_kernel)
 
             torch.save(test_score_best_model, f'{output_path}/predict_test_{sample_idx}.pt')
+            
+            # Saving best model 
+            torch.save(best_model.state_dict(), f'{output_path}/best_model_step_{step}_{sample_idx}.pt')            
 
         # sample_W = torch.stack([i[0] for i in sample_param], dim=0)
         # sample_b = torch.stack([i[1] for i in sample_param], dim=0)
@@ -561,9 +564,20 @@ def train():
             print(f'loss score:', loss_score + offset, 'offset:', offset)
         else:
             print(f'loss score:', loss_score)
+
+        print('acc train:', train_accs)
+        print('auc train:',train_aucs)
+        print('acc val:', val_accs)
+        print('auc val:',val_aucs)
+        print('acc test:', test_accs)
+        print('auc test:',test_aucs)
+
+        print(f"Final step {step} metrics:")
+
         print(f'acc train: {train_accs.mean().item()}, auc train: {train_aucs.mean().item()}')
         print(f'acc val: {val_accs.mean().item()}, auc val: {val_aucs.mean().item()}')
         print(f'acc test: {test_accs.mean().item()}, auc test: {test_aucs.mean().item()}')
+        
         s = ""
         s += f'finish step {step}, take time {time.time()-t} s\n'
         if args.clustering == 'y':
@@ -572,6 +586,18 @@ def train():
             s += f'loss score: {loss_score + offset}, offset: {offset}\n'
         else:
             s += f'loss score: {loss_score}\n'
+
+        s += f'acc train: {train_accs}\n'
+        s += f'auc train: {train_aucs}\n'
+
+        s += f'acc val: {val_accs}\n'
+        s += f'auc val: {val_aucs}\n'
+        
+        s += f'acc test: {test_accs}\n'
+        s += f'auc test: {test_aucs}\n'
+
+        s += f'Saved step {step} metrics:\n'        
+
         s += f'acc train: {train_accs.mean().item()}, auc train: {train_aucs.mean().item()}\n'
         s += f'acc val: {val_accs.mean().item()}, auc val: {val_aucs.mean().item()}\n'
         s += f'acc test: {test_accs.mean().item()}, auc test: {test_aucs.mean().item()}\n'
