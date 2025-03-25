@@ -596,7 +596,7 @@ def train():
         s += f'acc test: {test_accs}\n'
         s += f'auc test: {test_aucs}\n'
 
-        s += f'Saved step {step} metrics:\n'        
+        s += f'Final step {step} metrics:\n'        
 
         s += f'acc train: {train_accs.mean().item()}, auc train: {train_aucs.mean().item()}\n'
         s += f'acc val: {val_accs.mean().item()}, auc val: {val_aucs.mean().item()}\n'
